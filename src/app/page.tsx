@@ -25,7 +25,7 @@ export default async function LandingPage() {
 
   return (
     <>
-      <Hero spotlight={spotlight} />
+      <Hero spotlight={spotlight} liveCount={today.deadline_soon.length} />
       <StatsStrip stats={stats} />
       <CategoryGrid />
       <TodaySection today={today} />

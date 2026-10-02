@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-type Variant = "primary" | "dawn" | "outline-dark" | "outline-light" | "ghost";
+type Variant = "primary" | "dawn" | "outline-dark" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -12,13 +12,11 @@ const variants: Record<Variant, string> = {
   // invert in dark mode — the button itself flips polarity instead of breaking.
   primary:
     "bg-ink text-paper hover:opacity-90 shadow-[0_1px_0_rgba(255,255,255,0.08)_inset]",
-  // text-abyss (constant near-black), not text-ink, so the label stays
-  // readable on the orange fill regardless of site theme.
-  dawn: "bg-dawn text-abyss hover:bg-dawn-dim shadow-[0_8px_24px_-8px_rgba(255,169,77,0.6)]",
+  // text-on-accent (constant near-black), not text-ink, so the label stays
+  // readable on the lime fill regardless of site theme.
+  dawn: "btn-shine bg-dawn text-on-accent hover:bg-dawn-dim shadow-[0_8px_24px_-8px_rgba(204,255,0,0.5)]",
   "outline-dark":
     "border border-slate-200 text-ink hover:border-ink hover:bg-mist",
-  "outline-light":
-    "border border-white/25 text-white hover:border-white hover:bg-white/10",
   ghost: "text-ink hover:bg-mist",
 };
 

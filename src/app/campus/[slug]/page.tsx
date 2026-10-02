@@ -23,7 +23,7 @@ export default async function UniversityDetailPage({ params }: Props) {
 
         <div className="flex flex-col gap-5 border-b border-slate-100 pb-10">
           <div className="flex items-center gap-4">
-            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-abyss font-display text-lg font-bold text-white">
+            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-ink font-display text-lg font-bold text-paper">
               {university.short_name.slice(0, 3)}
             </span>
             <div className="flex flex-col gap-1.5">

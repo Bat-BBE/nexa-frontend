@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
+import { TiltLink } from "@/components/ui/TiltLink";
 import type { University } from "@/lib/types";
 
 export function UniversityRow({ universities }: { universities: University[] }) {
@@ -16,12 +16,12 @@ export function UniversityRow({ universities }: { universities: University[] }) 
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {universities.map((uni) => (
-            <Link
+            <TiltLink
               key={uni.id}
               href={`/campus/${uni.slug}`}
-              className="group flex flex-col items-start gap-3 rounded-2xl border border-slate-200 bg-paper p-6 transition-all hover:-translate-y-0.5 hover:shadow-elevated"
+              className="flex flex-col items-start gap-3 rounded-2xl border border-slate-200 bg-paper p-6 transition-[border-color,box-shadow] hover:border-dawn-hover/50 hover:shadow-glow"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-abyss font-display text-sm font-bold text-white">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-paper">
                 {uni.short_name.slice(0, 3)}
               </span>
               <div>
@@ -33,7 +33,7 @@ export function UniversityRow({ universities }: { universities: University[] }) 
               ) : (
                 <Badge tone="slate">Баталгаажсан</Badge>
               )}
-            </Link>
+            </TiltLink>
           ))}
         </div>
       </Container>

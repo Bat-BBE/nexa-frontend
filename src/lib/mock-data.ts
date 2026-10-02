@@ -2,6 +2,7 @@ import type {
   Club,
   HomeStats,
   HomeToday,
+  IconAsset,
   Interest,
   NexaEvent,
   Opportunity,
@@ -23,6 +24,33 @@ export const MOCK_INTERESTS: Interest[] = [
 ];
 
 const interest = (slug: string) => MOCK_INTERESTS.find((i) => i.slug === slug)!;
+
+// Mirrors apps/taxonomy/migrations/0003_seed_icon_assets.py — same keys,
+// no images (admin hasn't uploaded any yet), so the emoji fallback renders.
+const ICON_SEED: Array<[string, string, string]> = [
+  ["opportunity-type:JOB", "Ажил", "💼"],
+  ["opportunity-type:INTERNSHIP", "Дадлага", "🧭"],
+  ["opportunity-type:SCHOLARSHIP", "Тэтгэлэг", "🎓"],
+  ["opportunity-type:COMPETITION", "Тэмцээн", "🏆"],
+  ["opportunity-type:EVENT", "Эвент", "📅"],
+  ["opportunity-type:COURSE", "Сургалт", "📘"],
+  ["opportunity-type:EXCHANGE", "Солилцоо", "✈️"],
+  ["opportunity-type:RESEARCH", "Судалгаа", "🔬"],
+  ["category:jobs", "Ажил (ангилал)", "💼"],
+  ["category:schools", "Сургууль (ангилал)", "🏫"],
+  ["category:scholarships", "Тэтгэлэг (ангилал)", "🎓"],
+  ["category:competitions", "Тэмцээн (ангилал)", "🏆"],
+  ["category:events", "Эвент (ангилал)", "📅"],
+  ["category:clubs", "Клуб (ангилал)", "🤝"],
+  ["entity:club", "Клубын ерөнхий дүрс", "🤝"],
+];
+
+export const MOCK_ICONS: IconAsset[] = ICON_SEED.map(([key, label, emoji_fallback]) => ({
+  key,
+  label,
+  emoji_fallback,
+  image: null,
+}));
 
 export const MOCK_UNIVERSITIES: University[] = [
   {

@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { MobileTabBar } from "@/components/layout/MobileTabBar";
+import { IconProvider } from "@/components/providers/IconProvider";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { listIcons } from "@/lib/api";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
@@ -37,9 +41,11 @@ const THEME_INIT_SCRIPT = `
 })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const icons = await listIcons();
+
   return (
     <html
       lang="mn"
@@ -50,9 +56,13 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body className="flex min-h-screen flex-col" suppressHydrationWarning>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <IconProvider icons={icons}>
+          <Header />
+          <ScrollProgress />
+          <main className="flex-1 pb-16 md:pb-0">{children}</main>
+          <Footer />
+          <MobileTabBar />
+        </IconProvider>
       </body>
     </html>
   );

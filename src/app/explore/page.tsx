@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { FilterBar } from "@/components/explore/FilterBar";
 import { OpportunityCard } from "@/components/explore/OpportunityCard";
 import { listInterests, listOpportunities } from "@/lib/api";
@@ -34,43 +35,49 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const totalPages = Math.max(1, Math.ceil(opportunities.count / pageSize));
 
   return (
-    <div className="bg-paper py-14 md:py-20">
-      <Container className="flex flex-col gap-10">
-        <div className="flex flex-col gap-3">
-          <span className="font-display text-sm font-medium text-sky-dim">Explore</span>
-          <h1 className="font-display text-3xl font-semibold text-ink md:text-4xl">
-            Боломж хайх
-          </h1>
-          <p className="max-w-xl text-slate">
-            {opportunities.count} идэвхтэй боломж. Хугацаа дууссан зар автоматаар алга
-            болдог тул үргэлж шинэ мэдээлэл харна.
-          </p>
-        </div>
+    <div>
+      <PageHeader
+        kicker="Explore"
+        title="Боломж хайх"
+        description={`${opportunities.count} идэвхтэй боломж. Хугацаа дууссан зар автоматаар алга болдог тул үргэлж шинэ мэдээлэл харна.`}
+      />
+      <div className="bg-paper py-14 md:py-20">
+        <Container className="flex flex-col gap-10">
+          <Suspense fallback={null}>
+            <FilterBar interests={interests} />
+          </Suspense>
 
-        <Suspense fallback={null}>
-          <FilterBar interests={interests} />
-        </Suspense>
+          {opportunities.results.length ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {opportunities.results.map((opportunity, i) => {
+                // Bento rhythm: every 5th tile (and the very first) goes wide,
+                // so the feed reads as a composed layout rather than a flat grid.
+                const wide = i % 5 === 0;
+                return (
+                  <OpportunityCard
+                    key={opportunity.id}
+                    opportunity={opportunity}
+                    size={wide ? "wide" : "normal"}
+                    className={wide ? "sm:col-span-2" : ""}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 p-16 text-center text-slate-dim">
+              Таны шүүлтүүрт тохирох боломж олдсонгүй. Шүүлтүүрээ өөрчилж үзнэ үү.
+            </div>
+          )}
 
-        {opportunities.results.length ? (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {opportunities.results.map((opportunity) => (
-              <OpportunityCard key={opportunity.id} opportunity={opportunity} />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-dashed border-slate-200 p-16 text-center text-slate-dim">
-            Таны шүүлтүүрт тохирох боломж олдсонгүй. Шүүлтүүрээ өөрчилж үзнэ үү.
-          </div>
-        )}
-
-        {totalPages > 1 ? (
-          <div className="flex items-center justify-center gap-2 pt-4">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <PageLink key={p} page={p} active={p === page} params={params} />
-            ))}
-          </div>
-        ) : null}
-      </Container>
+          {totalPages > 1 ? (
+            <div className="flex items-center justify-center gap-2 pt-4">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                <PageLink key={p} page={p} active={p === page} params={params} />
+              ))}
+            </div>
+          ) : null}
+        </Container>
+      </div>
     </div>
   );
 }

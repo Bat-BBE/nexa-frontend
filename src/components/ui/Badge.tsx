@@ -1,13 +1,12 @@
 import type { ReactNode } from "react";
 
-type Tone = "sky" | "dawn" | "slate" | "outline" | "outline-light";
+type Tone = "sky" | "dawn" | "slate" | "outline";
 
 const tones: Record<Tone, string> = {
-  sky: "bg-sky-soft text-sky-dim",
-  dawn: "bg-dawn-soft text-dawn-dim",
+  sky: "bg-sky-soft text-sky-on-soft",
+  dawn: "bg-dawn-soft text-dawn-on-soft",
   slate: "bg-mist text-slate",
   outline: "border border-slate-200 text-slate",
-  "outline-light": "border border-white/25 text-white/85",
 };
 
 export function Badge({

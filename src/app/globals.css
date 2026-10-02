@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 /*
-  Design tokens — "Mönkh Khökh Tenger" (endless blue sky)
+  Design tokens — "Obsidian / Acid"
   ---------------------------------------------------------------
-  Nexa's identity is drawn from something specifically Mongolian rather
-  than a generic SaaS palette: the eternal blue sky is the country's
-  oldest, most recognisable visual idea. Ink is night, sky is day,
-  dawn is the accent that marks a deadline or a call to act.
+  True-black base with a single acid-lime signal colour. No navy, no
+  orange — one neutral (obsidian → white) scale and one accent that does
+  all the work: CTAs, live/deadline signals, focus states, hero glow.
+  A cool neon-teal exists only as a quiet secondary for "info" badges
+  (online, verified) so lime stays reserved for things that matter.
 */
 @theme {
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -15,33 +16,54 @@
   /* Theme-aware tokens — flip value between light/dark below. Components
      that read these (text-ink, bg-paper, bg-mist, text-slate…) adapt for
      free; nothing to touch at the call site. */
-  --color-ink: #0a0e17;
-  --color-horizon: #141d33;
-  --color-horizon-light: #1f2c4a;
-  --color-sky-soft: #eaf1ff;
-  --color-dawn-soft: #fff1e0;
-  --color-mist: #f6f7fb;
+  --color-ink: #0a0a0a;
+  --color-horizon: #1a1a1a;
+  --color-horizon-light: #262626;
+  --color-sky-soft: #ecfeff;
+  --color-dawn-soft: #f7ffd6;
+  /* Text-on-soft-tint pair — kept separate from --color-sky-dim/--color-dawn-dim
+     (which are constant, used for button hover states) because "readable
+     label on a pale tint" needs a different value per theme, while "slightly
+     darker lime on hover" does not. */
+  --color-sky-on-soft: #0f766e;
+  --color-dawn-on-soft: #5c7a00;
+  --color-mist: #f4f4f5;
   --color-paper: #ffffff;
-  --color-slate: #5b6478;
-  --color-slate-dim: #8992a6;
-  --color-slate-100: #e7e9f0;
-  --color-slate-200: #d3d7e3;
+  --color-slate: #52525b;
+  --color-slate-dim: #71717a;
+  --color-slate-100: #e4e4e7;
+  --color-slate-200: #d4d4d8;
 
-  /* Brand accents — constant in both themes; these are the colour, not the UI. */
-  --color-sky: #3d7fff;
-  --color-sky-dim: #2f63cc;
-  --color-dawn: #ffa94d;
-  --color-dawn-dim: #e8933a;
+  /* Brand accents — constant in both themes; these are the colour, not the UI.
+     dawn = acid lime, the one colour allowed to shout. sky = neon teal,
+     reserved for quiet "info" states so it never competes with lime. */
+  --color-sky: #2dd4bf;
+  --color-sky-dim: #0d9488;
+  --color-dawn: #ccff00;
+  --color-dawn-dim: #a3cc00;
+  /* Deeper lime for borders/hover rings on a WHITE surface — full-brightness
+     #ccff00 at low opacity reads as washed-out pastel on white, so light
+     mode gets a more saturated, darker lime here instead. Dark mode keeps
+     the bright signal since it already pops against black. */
+  --color-dawn-hover: #8aad00;
 
-  /* "Abyss" — the deliberately-always-dark chrome (Header, Hero, footer CTAs).
-     Equal to light-mode ink/horizon so nothing changes visually today; it's
-     what Header/Hero/CommunityPreview key off so they stay dark in both themes. */
-  --color-abyss: #0a0e17;
-  --color-abyss-2: #141d33;
-  --color-abyss-3: #1f2c4a;
+  /* No separate "always-dark chrome" scale any more — Header/Hero/CTA bands
+     use the SAME paper/mist/slate-100 the rest of the page does, so light
+     mode is fully white and dark mode is fully black, never a grey hybrid. */
+  --color-abyss: var(--color-paper);
+  --color-abyss-2: var(--color-mist);
+  --color-abyss-3: var(--color-slate-100);
+  /* Constant near-black — NOT theme-aware, unlike --color-abyss above. For
+     text/content sitting on a vivid accent (dawn button fill, gradient
+     avatar chip) where the accent itself never flips, so the label must
+     always be dark regardless of site theme. */
+  --color-on-accent: #0a0a0a;
 
-  --shadow-card: 0 1px 2px rgba(10, 14, 23, 0.04), 0 1px 1px rgba(10, 14, 23, 0.03);
-  --shadow-elevated: 0 20px 60px -20px rgba(10, 14, 23, 0.35);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 24px 60px -20px rgba(0, 0, 0, 0.45);
+  /* Lime glow — the "lifted" state on cards. Light mode leans on
+     --color-dawn-hover so it doesn't look pastel on white. */
+  --shadow-glow: 0 0 0 1px rgba(138, 173, 0, 0.3), 0 8px 40px -6px rgba(138, 173, 0, 0.3);
 }
 
 /* Dark theme — same token names, inverted values. Toggled via [data-theme]
@@ -49,38 +71,48 @@
    no flash. Falls back to the OS preference when the viewer hasn't chosen. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-ink: #f3f5fa;
-    --color-horizon: #e3e7f0;
-    --color-horizon-light: #cfd5e3;
-    --color-sky-soft: #15203a;
-    --color-dawn-soft: #2e2213;
-    --color-mist: #141824;
-    --color-paper: #0b0e16;
-    --color-slate: #a6afc2;
-    --color-slate-dim: #78819a;
-    --color-slate-100: #232838;
-    --color-slate-200: #30374a;
+    --color-ink: #f2f2f0;
+    --color-horizon: #e4e4e2;
+    --color-horizon-light: #cfcfcc;
+    --color-sky-soft: #0a2420;
+    --color-dawn-soft: #1f2600;
+    --color-sky-on-soft: #5eead4;
+    --color-dawn-on-soft: #d4ff4d;
+    --color-mist: #141414;
+    --color-paper: #0a0a0a;
+    --color-slate: #a1a1aa;
+    --color-slate-dim: #71717a;
+    --color-slate-100: #27272a;
+    --color-slate-200: #3f3f46;
 
-    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
-    --shadow-elevated: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+    --color-dawn-hover: #ccff00;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.3);
+    --shadow-elevated: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+    --shadow-glow: 0 0 0 1px rgba(204, 255, 0, 0.22), 0 8px 44px -6px rgba(204, 255, 0, 0.45);
   }
 }
 
 :root[data-theme="dark"] {
-  --color-ink: #f3f5fa;
-  --color-horizon: #e3e7f0;
-  --color-horizon-light: #cfd5e3;
-  --color-sky-soft: #15203a;
-  --color-dawn-soft: #2e2213;
-  --color-mist: #141824;
-  --color-paper: #0b0e16;
-  --color-slate: #a6afc2;
-  --color-slate-dim: #78819a;
-  --color-slate-100: #232838;
-  --color-slate-200: #30374a;
+  --color-ink: #f2f2f0;
+  --color-horizon: #e4e4e2;
+  --color-horizon-light: #cfcfcc;
+  --color-sky-soft: #0a2420;
+  --color-dawn-soft: #1f2600;
+  --color-sky-on-soft: #5eead4;
+  --color-dawn-on-soft: #d4ff4d;
+  --color-mist: #141414;
+  --color-paper: #0a0a0a;
+  --color-slate: #a1a1aa;
+  --color-slate-dim: #71717a;
+  --color-slate-100: #27272a;
+  --color-slate-200: #3f3f46;
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.2);
-  --shadow-elevated: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  --color-dawn-hover: #ccff00;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 0 1px rgba(204, 255, 0, 0.22), 0 8px 44px -6px rgba(204, 255, 0, 0.45);
 }
 
 @layer base {
@@ -102,12 +134,12 @@
   }
 
   ::selection {
-    background: var(--color-sky);
-    color: white;
+    background: var(--color-dawn);
+    color: #0a0a0a;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-sky);
+    outline: 2px solid var(--color-dawn);
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -126,11 +158,24 @@
     display: none;
   }
 
+  /* Slow-drifting aurora mesh instead of a static radial gradient — the two
+     colour pools gently migrate over ~20s so the hero never feels frozen,
+     without being distracting enough to fight the headline for attention. */
   .bg-sky-field {
-    background:
-      radial-gradient(120% 140% at 15% -10%, rgba(61, 127, 255, 0.35), transparent 55%),
-      radial-gradient(90% 120% at 100% 0%, rgba(255, 169, 77, 0.16), transparent 50%),
-      var(--color-abyss);
+    background-color: var(--color-abyss);
+    background-image:
+      radial-gradient(circle, rgba(204, 255, 0, 0.22), transparent 55%),
+      radial-gradient(circle, rgba(45, 212, 191, 0.16), transparent 50%);
+    background-size: 140% 140%, 130% 130%;
+    background-position: 15% -10%, 100% 0%;
+    background-repeat: no-repeat;
+    animation: sky-drift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes sky-drift {
+    to {
+      background-position: 25% 8%, 82% 22%;
+    }
   }
 
   .bg-grain {
@@ -157,6 +202,34 @@
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
+
+  /* Lime wordmark glow used sparingly — hero headline accent, live badges. */
+  .text-glow {
+    text-shadow: 0 0 24px rgba(204, 255, 0, 0.5);
+  }
+
+  /* Diagonal light sweep on hover — reserved for the one primary CTA style
+     so it reads as "the important button", not a tic repeated everywhere. */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 60%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+  }
+  .btn-shine:hover::after {
+    transform: translateX(120%);
+  }
 }
 
 /* One orchestrated hero entrance — not a scroll-triggered effect on every section. */
@@ -175,11 +248,30 @@
   animation: rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Page-level transition — shorter/subtler than hero-rise since this one
+   replays on every navigation, not once per session. */
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .hero-rise {
+  .hero-rise,
+  .page-enter,
+  .bg-sky-field {
     animation: none;
   }
 }

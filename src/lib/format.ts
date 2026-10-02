@@ -1,13 +1,10 @@
 import type { Audience, OpportunityType } from "./types";
 
-const MN_MONTHS = [
-  "1-р сар", "2-р сар", "3-р сар", "4-р сар", "5-р сар", "6-р сар",
-  "7-р сар", "8-р сар", "9-р сар", "10-р сар", "11-р сар", "12-р сар",
-];
-
 export function formatDate(iso: string): string {
   const d = new Date(iso);
-  return `${d.getDate()} ${MN_MONTHS[d.getMonth()]}`;
+  // "10-р сарын 12" — month before day, Mongolian word order. The old
+  // "{day} {month}-р сар" read backwards and produced "12 10-р сар-нд дуусна".
+  return `${d.getMonth() + 1}-р сарын ${d.getDate()}`;
 }
 
 export function formatDateTime(iso: string): string {

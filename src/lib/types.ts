@@ -3,6 +3,14 @@ export interface Interest {
   name: string;
   slug: string;
   icon: string;
+  image?: string | null;
+}
+
+export interface IconAsset {
+  key: string;
+  label: string;
+  emoji_fallback: string;
+  image: string | null;
 }
 
 export interface Program {

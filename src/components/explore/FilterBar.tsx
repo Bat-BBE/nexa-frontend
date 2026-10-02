@@ -124,9 +124,9 @@ function FilterPill({
 }) {
   const activeClasses =
     tone === "dawn"
-      ? "bg-dawn-soft text-dawn-dim"
+      ? "bg-dawn-soft text-dawn-on-soft"
       : tone === "sky"
-        ? "bg-sky-soft text-sky-dim"
+        ? "bg-sky-soft text-sky-on-soft"
         : "bg-ink text-paper";
 
   return (

@@ -18,16 +18,16 @@ const MESSAGES = [
 
 export function CommunityPreview() {
   return (
-    <section className="bg-abyss py-20 text-white md:py-28">
+    <section className="bg-paper py-20 md:py-28">
       <Container className="grid grid-cols-1 items-center gap-14 md:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <span className="font-display text-sm font-medium text-dawn">
+          <span className="font-display text-sm font-medium text-dawn-dim">
             Зорилготой хамт олон
           </span>
-          <h2 className="font-display text-3xl font-semibold leading-[1.1] text-balance md:text-4xl">
+          <h2 className="font-display text-3xl font-semibold leading-[1.1] text-balance text-ink md:text-4xl">
             Random чат биш, зорилготой холболт.
           </h2>
-          <p className="max-w-md text-base leading-relaxed text-white/65 md:text-lg">
+          <p className="max-w-md text-base leading-relaxed text-slate md:text-lg">
             Хэрэглэгч бүрийн хүсэлт зорилготой байна: хамт хичээл хийх, төслийн
             баг бүрдүүлэх, ур чадвар солилцох. Хоёр тал зөвшөөрсний дараа л DM
             нээгдэнэ — санамсаргүй танилцалт биш, аюулгүй, үр дүнтэй холбоо.
@@ -35,7 +35,7 @@ export function CommunityPreview() {
 
           <div className="flex flex-wrap gap-2 pt-2">
             {MATCH_TYPES.map((m) => (
-              <Badge key={m.label} tone="outline-light">
+              <Badge key={m.label} tone="outline">
                 {m.icon} {m.label}
               </Badge>
             ))}
@@ -49,24 +49,24 @@ export function CommunityPreview() {
         </div>
 
         <div className="relative mx-auto w-full max-w-sm">
-          <div className="rounded-2xl border border-white/10 bg-abyss-2 p-5 shadow-elevated">
-            <div className="flex items-center gap-2 border-b border-white/10 pb-4">
+          <div className="rounded-2xl border border-slate-100 bg-mist p-5 shadow-elevated">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-4">
               <span className="h-2.5 w-2.5 rounded-full bg-dawn" />
-              <span className="font-display text-sm font-medium text-white">
+              <span className="font-display text-sm font-medium text-ink">
                 #hackathon-team
               </span>
-              <span className="ml-auto text-xs text-white/40">Nexa Group</span>
+              <span className="ml-auto text-xs text-slate-dim">Nexa Group</span>
             </div>
 
             <div className="flex flex-col gap-4 pt-4">
               {MESSAGES.map((msg, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky to-dawn text-xs font-semibold text-abyss">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-sky to-dawn text-xs font-semibold text-on-accent">
                     {msg.initials}
                   </span>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-xs font-medium text-white/50">{msg.name}</span>
-                    <p className="rounded-2xl rounded-tl-sm bg-white/5 px-3.5 py-2 text-sm text-white/85">
+                    <span className="text-xs font-medium text-slate-dim">{msg.name}</span>
+                    <p className="rounded-2xl rounded-tl-sm bg-paper px-3.5 py-2 text-sm text-ink/85">
                       {msg.text}
                     </p>
                   </div>
@@ -75,7 +75,7 @@ export function CommunityPreview() {
             </div>
           </div>
 
-          <div className="absolute -bottom-4 -right-4 rounded-xl border border-white/10 bg-abyss-3 px-4 py-2.5 text-xs text-white/70 shadow-elevated">
+          <div className="absolute -bottom-4 -right-4 rounded-xl border border-slate-100 bg-paper px-4 py-2.5 text-xs text-slate shadow-elevated">
             🔒 Нэгдэхийн тулд бүртгүүлнэ
           </div>
         </div>

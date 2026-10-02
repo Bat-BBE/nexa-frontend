@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { Logo } from "@/components/ui/Logo";
 
 const COLUMNS = [
   {
@@ -23,15 +24,12 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 bg-mist">
+    <footer className="border-t border-slate-100 bg-mist pb-16 md:pb-0">
       <Container className="flex flex-col gap-12 py-16">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-xs">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky to-dawn font-display text-sm font-bold text-abyss">
-                N
-              </span>
-              <span className="font-display text-lg font-semibold text-ink">Nexa</span>
+            <Link href="/">
+              <Logo />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-slate">
               Монголын сурагч, оюутан, залуусын боломж, сургууль, хамт олныг нэг

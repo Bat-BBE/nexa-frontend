@@ -35,7 +35,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       type="button"
       onClick={toggle}
       aria-label="Theme сэлгэх"
-      className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/80 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white ${className}`}
+      className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-ink/10 text-ink/70 transition-colors hover:border-ink/25 hover:bg-ink/5 hover:text-ink ${className}`}
     >
       <span className="sr-only">Theme сэлгэх</span>
       {theme === "dark" ? (

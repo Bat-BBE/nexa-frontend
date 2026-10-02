@@ -1,6 +1,7 @@
 import {
   MOCK_CLUBS,
   MOCK_EVENTS,
+  MOCK_ICONS,
   MOCK_INTERESTS,
   MOCK_OPPORTUNITIES,
   MOCK_STATS,
@@ -12,6 +13,7 @@ import type {
   Club,
   HomeStats,
   HomeToday,
+  IconAsset,
   Interest,
   NexaEvent,
   Opportunity,
@@ -147,4 +149,11 @@ export function getEvent(slug: string) {
 
 export function listInterests() {
   return safeGet<Interest[]>("/taxonomy/interests/", MOCK_INTERESTS);
+}
+
+/** Category-tile / opportunity-type icon registry — admin-uploadable images
+ * with an emoji fallback. Next's fetch cache dedupes this across every
+ * component that calls it in the same render, so it's cheap to call widely. */
+export function listIcons() {
+  return safeGet<IconAsset[]>("/taxonomy/icons/", MOCK_ICONS);
 }

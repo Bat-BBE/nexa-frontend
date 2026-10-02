@@ -12,7 +12,7 @@ export function TodaySection({ today }: { today: HomeToday }) {
       <Container className="flex flex-col gap-14">
         <div className="flex flex-col gap-8">
           <SectionHeading
-            kicker="⏰ Өнөөдөр"
+            kicker="Өнөөдөр"
             title="Deadline ойртож буй боломжууд"
             description="Хугацаа дуусмагц энэ жагсаалтаас автоматаар алга болно — та хуучирсан зар үзэхгүй."
           />
@@ -21,7 +21,7 @@ export function TodaySection({ today }: { today: HomeToday }) {
               <OpportunityCard
                 key={opportunity.id}
                 opportunity={opportunity}
-                className="w-[280px] shrink-0 snap-start md:w-[300px]"
+                className="h-[190px] w-[280px] shrink-0 snap-start md:w-[300px]"
               />
             ))}
           </div>
@@ -29,7 +29,7 @@ export function TodaySection({ today }: { today: HomeToday }) {
 
         <div className="flex flex-col gap-8">
           <SectionHeading
-            kicker="📅 Энэ 7 хоног"
+            kicker="Энэ 7 хоног"
             title="Удахгүй болох эвентүүд"
             description="Клуб, сургуулиудын зохион байгуулж буй арга хэмжээнд бүртгэлгүйгээр танилцаарай."
           />
@@ -38,7 +38,7 @@ export function TodaySection({ today }: { today: HomeToday }) {
               <EventCard
                 key={event.id}
                 event={event}
-                className="w-[280px] shrink-0 snap-start md:w-[300px]"
+                className="h-[190px] w-[280px] shrink-0 snap-start md:w-[300px]"
               />
             ))}
           </div>

@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { Icon } from "@/components/ui/Icon";
+import { TiltLink } from "@/components/ui/TiltLink";
 import type { Club } from "@/lib/types";
 
 const MEMBERSHIP_LABELS: Record<Club["membership_type"], string> = {
@@ -10,13 +11,13 @@ const MEMBERSHIP_LABELS: Record<Club["membership_type"], string> = {
 
 export function ClubCard({ club }: { club: Club }) {
   return (
-    <Link
+    <TiltLink
       href={`/clubs/${club.slug}`}
-      className="group flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-paper p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-elevated"
+      className="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-paper p-5 shadow-card transition-[border-color,box-shadow] hover:border-dawn-hover/50 hover:shadow-glow"
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-dawn-soft text-xl">
-          🤝
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-dawn-soft">
+          <Icon iconKey="entity:club" fallback="🤝" className="h-5 w-5 text-xl" />
         </span>
         <Badge tone="slate">{MEMBERSHIP_LABELS[club.membership_type]}</Badge>
       </div>
@@ -41,6 +42,6 @@ export function ClubCard({ club }: { club: Club }) {
           </>
         ) : null}
       </div>
-    </Link>
+    </TiltLink>
   );
 }

@@ -1,15 +1,15 @@
-import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { TiltLink } from "@/components/ui/TiltLink";
 import type { University } from "@/lib/types";
 
 export function UniversityCard({ university }: { university: University }) {
   return (
-    <Link
+    <TiltLink
       href={`/campus/${university.slug}`}
-      className="group flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-paper p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-elevated"
+      className="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-paper p-6 shadow-card transition-[border-color,box-shadow] hover:border-dawn-hover/50 hover:shadow-glow"
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-abyss font-display text-sm font-bold text-white">
+        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-paper">
           {university.short_name.slice(0, 3)}
         </span>
         {university.is_launch_partner ? (
@@ -35,6 +35,6 @@ export function UniversityCard({ university }: { university: University }) {
           </>
         ) : null}
       </div>
-    </Link>
+    </TiltLink>
   );
 }
