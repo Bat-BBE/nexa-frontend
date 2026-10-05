@@ -26,7 +26,6 @@ export default async function LandingPage() {
       getForAudience("UNIVERSITY"),
       getForAudience("WORKING"),
     ]);
-
   const spotlight = today.featured.length
     ? today.featured
     : today.deadline_soon;
