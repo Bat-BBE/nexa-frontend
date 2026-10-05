@@ -9,19 +9,27 @@ import { SafetySection } from "@/components/landing/SafetySection";
 import { StatsStrip } from "@/components/landing/StatsStrip";
 import { TodaySection } from "@/components/landing/TodaySection";
 import { UniversityRow } from "@/components/landing/UniversityRow";
-import { getForAudience, getStats, getToday, listUniversities } from "@/lib/api";
+import {
+  getForAudience,
+  getStats,
+  getToday,
+  listUniversities,
+} from "@/lib/api";
 
 export default async function LandingPage() {
-  const [stats, today, universities, school, university, working] = await Promise.all([
-    getStats(),
-    getToday(),
-    listUniversities(),
-    getForAudience("SCHOOL"),
-    getForAudience("UNIVERSITY"),
-    getForAudience("WORKING"),
-  ]);
+  const [stats, today, universities, school, university, working] =
+    await Promise.all([
+      getStats(),
+      getToday(),
+      listUniversities(),
+      getForAudience("SCHOOL"),
+      getForAudience("UNIVERSITY"),
+      getForAudience("WORKING"),
+    ]);
 
-  const spotlight = today.featured.length ? today.featured : today.deadline_soon;
+  const spotlight = today.featured.length
+    ? today.featured
+    : today.deadline_soon;
 
   return (
     <>
@@ -29,7 +37,9 @@ export default async function LandingPage() {
       <StatsStrip stats={stats} />
       <CategoryGrid />
       <TodaySection today={today} />
-      <AudienceTabs content={{ SCHOOL: school, UNIVERSITY: university, WORKING: working }} />
+      <AudienceTabs
+        content={{ SCHOOL: school, UNIVERSITY: university, WORKING: working }}
+      />
       <CommunityPreview />
       <HowItWorks />
       <UniversityRow universities={universities.results} />
