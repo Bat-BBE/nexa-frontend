@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import { TiltLink } from "@/components/ui/TiltLink";
+import { UniversityMark } from "@/components/ui/UniversityMark";
 import type { University } from "@/lib/types";
 
 export function UniversityRow({ universities }: { universities: University[] }) {
@@ -21,9 +22,7 @@ export function UniversityRow({ universities }: { universities: University[] }) 
               href={`/campus/${uni.slug}`}
               className="flex flex-col items-start gap-3 rounded-2xl border border-slate-200 bg-paper p-6 transition-[border-color,box-shadow] hover:border-dawn-hover/50 hover:shadow-glow"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-paper">
-                {uni.short_name.slice(0, 3)}
-              </span>
+              <UniversityMark logo={uni.logo} shortName={uni.short_name} />
               <div>
                 <p className="font-display text-sm font-semibold text-ink">{uni.short_name}</p>
                 <p className="text-xs text-slate-dim">{uni.city}</p>

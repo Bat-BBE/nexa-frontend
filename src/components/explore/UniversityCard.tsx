@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import { TiltLink } from "@/components/ui/TiltLink";
+import { UniversityMark } from "@/components/ui/UniversityMark";
 import type { University } from "@/lib/types";
 
 export function UniversityCard({ university }: { university: University }) {
@@ -9,9 +10,7 @@ export function UniversityCard({ university }: { university: University }) {
       className="flex h-full flex-col gap-4 rounded-2xl border border-slate-100 bg-paper p-6 shadow-card transition-[border-color,box-shadow] hover:border-dawn-hover/50 hover:shadow-glow"
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-paper">
-          {university.short_name.slice(0, 3)}
-        </span>
+        <UniversityMark logo={university.logo} shortName={university.short_name} />
         {university.is_launch_partner ? (
           <Badge tone="dawn">Launch partner</Badge>
         ) : (
