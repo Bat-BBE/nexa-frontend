@@ -1,8 +1,11 @@
+import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { Icon } from "@/components/ui/Icon";
+import { InterestGlyph } from "@/components/ui/InterestGlyph";
 import { AUDIENCE_LABELS, deadlineLabel, formatDate, TYPE_ICONS } from "@/lib/format";
 import { getOpportunity } from "@/lib/api";
 
@@ -17,17 +20,29 @@ export default async function OpportunityDetailPage({ params }: Props) {
   if (!opportunity) notFound();
 
   return (
-    <div className="bg-paper py-14 md:py-20">
-      <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_360px]">
-        <div className="flex flex-col gap-8">
+    <div>
+      <section className="relative overflow-hidden border-b border-slate-100 bg-mist py-14 md:py-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            background:
+              "radial-gradient(55% 85% at 10% 0%, var(--color-sky), transparent 60%), radial-gradient(45% 75% at 100% 15%, var(--color-dawn), transparent 55%)",
+          }}
+        />
+        <Container className="relative flex flex-col gap-6">
           <Link href="/explore" className="text-sm text-slate hover:text-ink">
             ← Explore руу буцах
           </Link>
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist text-2xl">
-                {TYPE_ICONS[opportunity.type]}
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-paper">
+                <Icon
+                  iconKey={`opportunity-type:${opportunity.type}`}
+                  fallback={TYPE_ICONS[opportunity.type]}
+                  className="h-6 w-6"
+                />
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge tone="slate">{opportunity.type_display}</Badge>
@@ -44,60 +59,67 @@ export default async function OpportunityDetailPage({ params }: Props) {
             </h1>
             <p className="text-lg text-slate">{opportunity.organization_name}</p>
           </div>
+        </Container>
+      </section>
 
-          {opportunity.description ? (
-            <div className="prose prose-slate max-w-none border-t border-slate-100 pt-8 text-[15px] leading-relaxed text-ink/85">
-              {opportunity.description.split("\n").map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-          ) : null}
-
-          {opportunity.interests.length ? (
-            <div className="flex flex-wrap gap-2 border-t border-slate-100 pt-8">
-              {opportunity.interests.map((interest) => (
-                <Badge key={interest.slug} tone="sky">
-                  {interest.icon} {interest.name}
-                </Badge>
-              ))}
-            </div>
-          ) : null}
-        </div>
-
-        <aside className="flex h-fit flex-col gap-6 rounded-2xl border border-slate-100 bg-mist p-6">
-          {opportunity.source_url ? (
-            <Button href={opportunity.source_url} variant="dawn" size="lg" className="w-full">
-              Албан ёсны линкээр очих →
-            </Button>
-          ) : null}
-
-          <dl className="flex flex-col gap-4 text-sm">
-            <Row label="Deadline">
-              {opportunity.deadline ? formatDate(opportunity.deadline) : "Тодорхойгүй"}
-            </Row>
-            <Row label="Байршил">
-              {opportunity.is_remote ? "Онлайн" : opportunity.location || "Тодорхойгүй"}
-            </Row>
-            {opportunity.compensation ? (
-              <Row label="Цалин / Урамшуулал">{opportunity.compensation}</Row>
+      <div className="bg-paper py-14 md:py-20">
+        <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_360px]">
+          <div className="flex flex-col gap-8">
+            {opportunity.description ? (
+              <div className="prose prose-slate max-w-none text-[15px] leading-relaxed text-ink/85">
+                {opportunity.description.split("\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
             ) : null}
-            <Row label="Зорилтот бүлэг">
-              {opportunity.audiences.map((a) => AUDIENCE_LABELS[a]).join(", ")}
-            </Row>
-            {opportunity.source_name ? (
-              <Row label="Эх сурвалж">{opportunity.source_name}</Row>
-            ) : null}
-            {opportunity.verified_at ? (
-              <Row label="Шалгасан огноо">{formatDate(opportunity.verified_at)}</Row>
-            ) : null}
-          </dl>
 
-          <p className="border-t border-slate-200 pt-4 text-xs leading-relaxed text-slate-dim">
-            ⚠️ Энэ линк нь гадаад, албан ёсны эх сурвалж руу шилждэг. Хувийн мэдээллээ
-            зөвхөн итгэмжлэгдсэн сайтад бөглөнө үү.
-          </p>
-        </aside>
-      </Container>
+            {opportunity.interests.length ? (
+              <div className="flex flex-wrap gap-2">
+                {opportunity.interests.map((interest) => (
+                  <Badge key={interest.slug} tone="sky">
+                    <InterestGlyph interest={interest} /> {interest.name}
+                  </Badge>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <aside className="flex h-fit flex-col gap-6 rounded-2xl border border-slate-100 bg-mist p-6">
+            {opportunity.source_url ? (
+              <Button href={opportunity.source_url} variant="dawn" size="lg" className="w-full">
+                Албан ёсны линкээр очих →
+              </Button>
+            ) : null}
+
+            <dl className="flex flex-col gap-4 text-sm">
+              <Row label="Deadline">
+                {opportunity.deadline ? formatDate(opportunity.deadline) : "Тодорхойгүй"}
+              </Row>
+              <Row label="Байршил">
+                {opportunity.is_remote ? "Онлайн" : opportunity.location || "Тодорхойгүй"}
+              </Row>
+              {opportunity.compensation ? (
+                <Row label="Цалин / Урамшуулал">{opportunity.compensation}</Row>
+              ) : null}
+              <Row label="Зорилтот бүлэг">
+                {opportunity.audiences.map((a) => AUDIENCE_LABELS[a]).join(", ")}
+              </Row>
+              {opportunity.source_name ? (
+                <Row label="Эх сурвалж">{opportunity.source_name}</Row>
+              ) : null}
+              {opportunity.verified_at ? (
+                <Row label="Шалгасан огноо">{formatDate(opportunity.verified_at)}</Row>
+              ) : null}
+            </dl>
+
+            <p className="flex items-start gap-1.5 border-t border-slate-200 pt-4 text-xs leading-relaxed text-slate-dim">
+              <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+              Энэ линк нь гадаад, албан ёсны эх сурвалж руу шилждэг. Хувийн мэдээллээ
+              зөвхөн итгэмжлэгдсэн сайтад бөглөнө үү.
+            </p>
+          </aside>
+        </Container>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { Drama, Flag, MessageCircle, Shield, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -12,9 +13,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 const DRIFT_URL = "https://drift-six-iota.vercel.app";
 
 const RULES = [
-  { icon: "🎭", title: "Нэргүй эхэлнэ", desc: "Найз болохоос өмнө хэн нэгэнд таны username харагдахгүй." },
-  { icon: "🔞", title: "18+ горим", desc: "Насны бүлгээр тусгаарлагдсан — насанд хүрээгүй хэрэглэгчийг санамсаргүй холбохгүй." },
-  { icon: "🚩", title: "Report & Skip", desc: "Тохирохгүй бол Skip дар, зохисгүй зан авирыг хэдхэн товшилтоор мэдээлнэ." },
+  { icon: Drama, title: "Нэргүй эхэлнэ", desc: "Найз болохоос өмнө хэн нэгэнд таны username харагдахгүй." },
+  { icon: Shield, title: "18+ горим", desc: "Насны бүлгээр тусгаарлагдсан — насанд хүрээгүй хэрэглэгчийг санамсаргүй холбохгүй." },
+  { icon: Flag, title: "Report & Skip", desc: "Тохирохгүй бол Skip дар, зохисгүй зан авирыг хэдхэн товшилтоор мэдээлнэ." },
 ];
 
 export default function RandomChatPage() {
@@ -24,7 +25,9 @@ export default function RandomChatPage() {
     <div>
       <section className="relative overflow-hidden bg-sky-field bg-grain pb-20 pt-16 md:pt-24">
         <Container className="flex flex-col items-center gap-6 text-center">
-          <Badge tone="outline">✨ Connect · Random Chat</Badge>
+          <Badge tone="outline">
+            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Connect · Random Chat
+          </Badge>
           <h1 className="hero-rise max-w-2xl font-display text-4xl font-semibold leading-[1.08] text-balance text-ink md:text-5xl">
             Санамсаргүй хүнтэй,
             <br />
@@ -47,7 +50,9 @@ export default function RandomChatPage() {
                 key={r.title}
                 className="flex flex-col gap-2 rounded-2xl border border-slate-100 bg-mist p-5"
               >
-                <span className="text-2xl">{r.icon}</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-paper text-ink">
+                  <r.icon className="h-5 w-5" aria-hidden />
+                </span>
                 <h3 className="font-display text-sm font-semibold text-ink">{r.title}</h3>
                 <p className="text-sm leading-relaxed text-slate">{r.desc}</p>
               </div>
@@ -85,8 +90,8 @@ export default function RandomChatPage() {
                 />
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-5 px-6 text-center">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-ink/5 text-2xl">
-                    💬
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-ink/5 text-ink">
+                    <MessageCircle className="h-7 w-7" aria-hidden />
                   </span>
                   <div className="flex flex-col gap-1.5">
                     <h2 className="font-display text-lg font-semibold text-ink">

@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -72,7 +73,7 @@ export function Hero({
             className="hero-rise flex max-w-md items-center gap-3 rounded-full border border-ink/10 bg-ink/5 px-5 py-3.5 text-sm text-slate backdrop-blur-sm transition-colors hover:border-ink/20 hover:text-ink"
             style={{ animationDelay: "0.2s" }}
           >
-            <span aria-hidden>🔍</span>
+            <Search className="h-4 w-4 shrink-0" aria-hidden />
             Ажил, тэтгэлэг, эвент, сургууль хайх…
           </Link>
 

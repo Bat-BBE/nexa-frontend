@@ -2,6 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import type { ReactNode } from "react";
+import { InterestGlyph } from "@/components/ui/InterestGlyph";
 import { TYPE_LABELS, AUDIENCE_LABELS } from "@/lib/format";
 import type { Interest } from "@/lib/types";
 
@@ -98,7 +100,11 @@ export function FilterBar({ interests }: { interests: Interest[] }) {
             {interests.map((interest) => (
               <FilterPill
                 key={interest.slug}
-                label={`${interest.icon} ${interest.name}`}
+                label={
+                  <span className="inline-flex items-center gap-1.5">
+                    <InterestGlyph interest={interest} /> {interest.name}
+                  </span>
+                }
                 active={activeInterest === interest.slug}
                 onClick={() => updateParam("interest", interest.slug)}
                 tone="sky"
@@ -117,7 +123,7 @@ function FilterPill({
   onClick,
   tone = "ink",
 }: {
-  label: string;
+  label: ReactNode;
   active: boolean;
   onClick: () => void;
   tone?: "ink" | "dawn" | "sky";

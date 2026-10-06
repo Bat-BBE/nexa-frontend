@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
+import { InterestGlyph } from "@/components/ui/InterestGlyph";
 import { TiltLink } from "@/components/ui/TiltLink";
 import type { Club } from "@/lib/types";
 
@@ -36,8 +37,8 @@ export function ClubCard({ club }: { club: Club }) {
         {club.interests[0] ? (
           <>
             <span aria-hidden>•</span>
-            <span>
-              {club.interests[0].icon} {club.interests[0].name}
+            <span className="inline-flex items-center gap-1">
+              <InterestGlyph interest={club.interests[0]} /> {club.interests[0].name}
             </span>
           </>
         ) : null}

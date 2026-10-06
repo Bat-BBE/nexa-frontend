@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { Icon } from "@/components/ui/Icon";
+import { InterestGlyph } from "@/components/ui/InterestGlyph";
 import { formatDateTime } from "@/lib/format";
 import { getEvent } from "@/lib/api";
 
@@ -17,25 +19,38 @@ export default async function EventDetailPage({ params }: Props) {
   if (!event) notFound();
 
   return (
-    <div className="bg-paper py-14 md:py-20">
-      <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px]">
-        <div className="flex flex-col gap-8">
+    <div>
+      <section className="relative overflow-hidden border-b border-slate-100 bg-mist py-14 md:py-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            background:
+              "radial-gradient(55% 85% at 10% 0%, var(--color-sky), transparent 60%), radial-gradient(45% 75% at 100% 15%, var(--color-dawn), transparent 55%)",
+          }}
+        />
+        <Container className="relative flex flex-col gap-6">
           <Link href="/events" className="text-sm text-slate hover:text-ink">
             ← Эвентүүд рүү буцах
           </Link>
 
           <div className="flex flex-col gap-4">
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-soft text-2xl">
-              📅
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-soft">
+              <Icon iconKey="opportunity-type:EVENT" fallback="📅" className="h-7 w-7" />
             </span>
             <h1 className="font-display text-3xl font-semibold text-ink md:text-4xl">
               {event.title}
             </h1>
             <p className="text-slate">{formatDateTime(event.start_at)}</p>
           </div>
+        </Container>
+      </section>
 
+      <div className="bg-paper py-14 md:py-20">
+        <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_320px]">
+          <div className="flex flex-col gap-8">
           {event.description ? (
-            <p className="max-w-2xl border-t border-slate-100 pt-8 text-[15px] leading-relaxed text-ink/85">
+            <p className="max-w-2xl text-[15px] leading-relaxed text-ink/85">
               {event.description}
             </p>
           ) : null}
@@ -44,7 +59,7 @@ export default async function EventDetailPage({ params }: Props) {
             <div className="flex flex-wrap gap-2 border-t border-slate-100 pt-8">
               {event.interests.map((interest) => (
                 <Badge key={interest.slug} tone="sky">
-                  {interest.icon} {interest.name}
+                  <InterestGlyph interest={interest} /> {interest.name}
                 </Badge>
               ))}
             </div>
@@ -76,7 +91,8 @@ export default async function EventDetailPage({ params }: Props) {
             {event.capacity ? <Row label="Багтаамж">{event.capacity} хүн</Row> : null}
           </div>
         </aside>
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }

@@ -1,24 +1,25 @@
+import { CircleCheck, Clock, ShieldAlert, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const PILLARS = [
   {
-    icon: "🛡️",
+    icon: ShieldCheck,
     title: "Report & Block",
     desc: "Бүх контент, чат, профайл дээр 1-2 tap дотор мэдээлэх, хориглох боломжтой.",
   },
   {
-    icon: "🔞",
+    icon: ShieldAlert,
     title: "Насны хамгаалалт",
     desc: "18-аас доош хэрэглэгчийг насанд хүрэгчтэй санамсаргүй холбохгүй.",
   },
   {
-    icon: "✅",
+    icon: CircleCheck,
     title: "Эх сурвалж баталгаажилт",
     desc: "Боломж бүр албан ёсны линк, шалгасан огноотой — хуучирсан зар автоматаар нуугдана.",
   },
   {
-    icon: "⏱️",
+    icon: Clock,
     title: "24 цагийн SLA",
     desc: "Report-ыг 24 цагийн дотор, ноцтой тохиолдлыг 4 цагийн дотор хянана.",
   },
@@ -40,7 +41,9 @@ export function SafetySection() {
               key={p.title}
               className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-mist p-6"
             >
-              <span className="text-2xl">{p.icon}</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-paper text-ink">
+                <p.icon className="h-5 w-5" aria-hidden />
+              </span>
               <h3 className="font-display text-base font-semibold text-ink">{p.title}</h3>
               <p className="text-sm leading-relaxed text-slate">{p.desc}</p>
             </div>

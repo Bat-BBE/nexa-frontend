@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
+import { InterestGlyph } from "@/components/ui/InterestGlyph";
 import { TiltLink } from "@/components/ui/TiltLink";
 import { deadlineLabel, TYPE_ICONS } from "@/lib/format";
 import type { Opportunity } from "@/lib/types";
@@ -68,8 +69,8 @@ export function OpportunityCard({
         {primaryInterest ? (
           <>
             <span aria-hidden>•</span>
-            <span>
-              {primaryInterest.icon} {primaryInterest.name}
+            <span className="inline-flex items-center gap-1">
+              <InterestGlyph interest={primaryInterest} /> {primaryInterest.name}
             </span>
           </>
         ) : null}

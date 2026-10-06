@@ -1,19 +1,25 @@
+import { BookOpen, Eye, GraduationCap, Lock, PartyPopper, Repeat, Ticket, Wrench } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 
 const MATCH_TYPES = [
-  { icon: "📚", label: "Study Partner" },
-  { icon: "🛠️", label: "Project Team" },
-  { icon: "🔁", label: "Skill Exchange" },
-  { icon: "🎟️", label: "Event Buddy" },
-  { icon: "🧑‍🏫", label: "Mentor Q&A" },
+  { icon: BookOpen, label: "Study Partner" },
+  { icon: Wrench, label: "Project Team" },
+  { icon: Repeat, label: "Skill Exchange" },
+  { icon: Ticket, label: "Event Buddy" },
+  { icon: GraduationCap, label: "Mentor Q&A" },
 ];
 
 const MESSAGES = [
-  { name: "Тэмүүлэн", initials: "Т", text: "Hackathon-д backend хийх хүн хэрэгтэй байна 👀" },
-  { name: "Сараа", initials: "С", text: "Би Django мэднэ, нэгдэж болно уу?" },
-  { name: "Тэмүүлэн", initials: "Т", text: "За, Connect хийе — team бүрдлээ 🎉" },
+  {
+    name: "Тэмүүлэн",
+    initials: "Т",
+    text: "Hackathon-д backend хийх хүн хэрэгтэй байна",
+    icon: Eye,
+  },
+  { name: "Сараа", initials: "С", text: "Би Django мэднэ, нэгдэж болно уу?", icon: null },
+  { name: "Тэмүүлэн", initials: "Т", text: "За, Connect хийе — team бүрдлээ", icon: PartyPopper },
 ];
 
 export function CommunityPreview() {
@@ -36,7 +42,7 @@ export function CommunityPreview() {
           <div className="flex flex-wrap gap-2 pt-2">
             {MATCH_TYPES.map((m) => (
               <Badge key={m.label} tone="outline">
-                {m.icon} {m.label}
+                <m.icon className="h-3.5 w-3.5" aria-hidden /> {m.label}
               </Badge>
             ))}
           </div>
@@ -66,8 +72,9 @@ export function CommunityPreview() {
                   </span>
                   <div className="flex flex-col gap-0.5">
                     <span className="text-xs font-medium text-slate-dim">{msg.name}</span>
-                    <p className="rounded-2xl rounded-tl-sm bg-paper px-3.5 py-2 text-sm text-ink/85">
+                    <p className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm bg-paper px-3.5 py-2 text-sm text-ink/85">
                       {msg.text}
+                      {msg.icon ? <msg.icon className="h-3.5 w-3.5 shrink-0 text-slate-dim" aria-hidden /> : null}
                     </p>
                   </div>
                 </div>
@@ -75,8 +82,8 @@ export function CommunityPreview() {
             </div>
           </div>
 
-          <div className="absolute -bottom-4 -right-4 rounded-xl border border-slate-100 bg-paper px-4 py-2.5 text-xs text-slate shadow-elevated">
-            🔒 Нэгдэхийн тулд бүртгүүлнэ
+          <div className="absolute -bottom-4 -right-4 flex items-center gap-1.5 rounded-xl border border-slate-100 bg-paper px-4 py-2.5 text-xs text-slate shadow-elevated">
+            <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden /> Нэгдэхийн тулд бүртгүүлнэ
           </div>
         </div>
       </Container>

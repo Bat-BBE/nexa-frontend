@@ -1,3 +1,4 @@
+import { Landmark, Link2, MapPin } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/Badge";
@@ -16,13 +17,21 @@ export default async function UniversityDetailPage({ params }: Props) {
   if (!university) notFound();
 
   return (
-    <div className="bg-paper py-14 md:py-20">
-      <Container className="flex flex-col gap-10">
-        <Link href="/campus" className="text-sm text-slate hover:text-ink">
-          ← Campus руу буцах
-        </Link>
+    <div>
+      <section className="relative overflow-hidden border-b border-slate-100 bg-mist py-14 md:py-20">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            background:
+              "radial-gradient(55% 85% at 10% 0%, var(--color-sky), transparent 60%), radial-gradient(45% 75% at 100% 15%, var(--color-dawn), transparent 55%)",
+          }}
+        />
+        <Container className="relative flex flex-col gap-5">
+          <Link href="/campus" className="text-sm text-slate hover:text-ink">
+            ← Campus руу буцах
+          </Link>
 
-        <div className="flex flex-col gap-5 border-b border-slate-100 pb-10">
           <div className="flex items-center gap-4">
             <UniversityMark
               logo={university.logo}
@@ -45,16 +54,29 @@ export default async function UniversityDetailPage({ params }: Props) {
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-slate-dim">
-            <span>📍 {university.city}</span>
-            {university.founded_year ? <span>🏛️ {university.founded_year} онд байгуулагдсан</span> : null}
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-4 w-4" aria-hidden /> {university.city}
+            </span>
+            {university.founded_year ? (
+              <span className="inline-flex items-center gap-1.5">
+                <Landmark className="h-4 w-4" aria-hidden /> {university.founded_year} онд
+                байгуулагдсан
+              </span>
+            ) : null}
             {university.website ? (
-              <a href={university.website} className="text-sky-dim hover:underline">
-                🔗 Албан ёсны сайт
+              <a
+                href={university.website}
+                className="inline-flex items-center gap-1.5 text-sky-dim hover:underline"
+              >
+                <Link2 className="h-4 w-4" aria-hidden /> Албан ёсны сайт
               </a>
             ) : null}
           </div>
-        </div>
+        </Container>
+      </section>
 
+      <div className="bg-paper py-14 md:py-20">
+        <Container className="flex flex-col gap-10">
         {university.overview ? (
           <div className="flex flex-col gap-3">
             <h2 className="font-display text-lg font-semibold text-ink">Танилцуулга</h2>
@@ -98,7 +120,8 @@ export default async function UniversityDetailPage({ params }: Props) {
             </div>
           </div>
         ) : null}
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }
